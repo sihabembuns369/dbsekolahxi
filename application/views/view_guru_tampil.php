@@ -116,7 +116,6 @@
                                     echo '<img width="20%" src="upload/guru/' . $dg->foto . '" alt="Avatar">';
                                 }
                                 ?>
-
                             </td>
                             <td>
                                 <a href="<?php echo base_url('guru/edit/' . $dg->id_guru); ?>" class="btn btn-primary">Edit</a>
