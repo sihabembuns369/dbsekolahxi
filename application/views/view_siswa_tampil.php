@@ -119,7 +119,7 @@
                             </td>
                             <td>
                                 <a href="<?php echo base_url('siswa/edit/' . $dg->id_siswa); ?>" class="btn btn-primary">Edit</a>
-                                <a href="#" onclick="btn_hapus('<?php echo $dg->id_guru; ?>','<?php echo $dg->nama; ?>','<?php echo $dg->foto; ?>')" class="btn btn-danger">Hapus</a>
+                                <a href="#" onclick="btn_hapus('<?php echo $dg->id_siswa    ; ?>','<?php echo $dg->nama; ?>','<?php echo $dg->foto; ?>')" class="btn btn-danger">Hapus</a>
                             </td>
                         </tr>
                     <?php
