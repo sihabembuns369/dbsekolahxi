@@ -10,10 +10,15 @@ class Siswa extends CI_Controller
 
         //memanggil database melalui model dengan tidak membawa nilai apapun ke modelnya
         $data['dtsiswa'] = $this->Msiswa->siswa();
+        // membuat variabel active untuk membedakan menu
+        $data['msiswatampil'] = true;
+        $data['title'] = "Siswa";
         //setelah itu model akan mengirimkan data sesuai permintaan yang akan diteruskan melalui view perhatikan parameter array yang ada di $data['dtsiswa] $data['dtsiswa]
 
         //untuk penamaan view_home bebas asalkan sama pada file yang ada di folder views
-		$this->load->view('view_siswa_tampil', $data);
+        $this->load->view('backend/part/header', $data);
+        $this->load->view('backend/page/siswa/view_siswa_tampil');
+        $this->load->view('backend/part/footer');
     }
 
     public function tambah()
@@ -113,8 +118,14 @@ class Siswa extends CI_Controller
             redirect('siswa');
         }
 
+        // membuat variabel active untuk membedakan menu
+        $data['msiswatampil'] = true;
+        $data['title'] = "Edit Siswa";
+
         //untuk penamaan view_siswa bebas asalkan sama pada file yang ada di folder views
-        $this->load->view('view_siswa_edit', $data);
+        $this->load->view('backend/part/header', $data);
+        $this->load->view('backend/page/siswa/view_siswa_edit');
+        $this->load->view('backend/part/footer');
         // $data ini digunakan untuk mengirim nilai hasil dari pencarian melalui model $data['dtsiswa']
     }
 
@@ -247,5 +258,4 @@ class Siswa extends CI_Controller
             redirect('siswa');
         }
     }
-
 }

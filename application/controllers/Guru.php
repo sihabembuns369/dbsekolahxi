@@ -10,10 +10,15 @@ class Guru extends CI_Controller
 
         //memanggil database melalui model dengan tidak membawa nilai apapun ke modelnya
         $data['dtguru'] = $this->Mguru->guru();
+        // membuat variabel active untuk membedakan menu
+        $data['mgurutampil'] = true;
+        $data['title'] = "Guru";
         //setelah itu model akan mengirimkan data sesuai permintaan yang akan diteruskan melalui view perhatikan parameter array yang ada di $data['dtguru] $data['dtsiswa]
 
         //untuk penamaan view_home bebas asalkan sama pada file yang ada di folder views
-        $this->load->view('view_guru_tampil', $data);
+        $this->load->view('backend/part/header', $data);
+        $this->load->view('backend/page/guru/view_guru_tampil');
+        $this->load->view('backend/part/footer');
     }
 
     public function tambah()
@@ -58,7 +63,7 @@ class Guru extends CI_Controller
             // LOGIKA IF [JIKA SISTEM SUDAH MEMINDAHKAN FOTO KEDALAM VARIABEL LOCATION DAN mengirimkan data yang ada di dalam kurung ini ($nama, $alamat, $tanggallahir, $foto)]
             if (move_uploaded_file($_FILES['txtfoto']['tmp_name'], $location) && $this->Mguru->guru_tambah($nama, $alamat, $tanggallahir, $foto)) {
                 $this->session->set_flashdata('notif', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Berhasil Disimpan!</strong> Data '.$nama.' Sudah Tersimpan.
+                <strong>Berhasil Disimpan!</strong> Data ' . $nama . ' Sudah Tersimpan.
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -79,10 +84,10 @@ class Guru extends CI_Controller
     // pada function kali ini berbeda dari yang diatas, dikarenakan ada parameter didalamnya function yaitu $id_guru
     // APA ITU PARAMETER ADALAH SEBUAH PERINTAH UNTUK MENYIMPAN NILAI YANG DISIMPAN DI VARIABEL seperti contoh dibawah ini kita menggunakan variabel $id_guru
     // $id_guru=0  YANG DIMAKSUD PADA VARIABEL INI ADALAH UNTUK MELIHAT JIKA PADA PERINTAH TIDAK ADA NILAINYA MAKA NILAI 0 INILAH YANG AKANN  DIGUNAKAN
-    public function edit($id_guru=0)
+    public function edit($id_guru = 0)
     {
         // melakukan logika terlebih dahulu untuk mengetahui $id_guru sudah ada nilainya atau tidak
-        if ($id_guru==0) {
+        if ($id_guru == 0) {
             // NOTIFIKASI UNTUK DITAMPILKAN DI HALAMAN GURU
             $this->session->set_flashdata('notif', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>Ada yang Salah!</strong> URL tidak terdapat ID.
@@ -91,7 +96,7 @@ class Guru extends CI_Controller
             </button>
             </div>');
             // REDIRECT BERPINDAH HALAMAN KE GURU
-            redirect('guru');        
+            redirect('guru');
         }
 
         // kita panggil dulu nama model yang kita buat
@@ -101,7 +106,7 @@ class Guru extends CI_Controller
         $data['dtguruid'] = $this->Mguru->guru_edit($id_guru);
 
         // melakukan logika terlebih dahulu untuk mengetahui hasil dari model guru_edit sudah ada nilainya atau tidak
-        if ($data['dtguruid']==0) {
+        if ($data['dtguruid'] == 0) {
             // NOTIFIKASI UNTUK DITAMPILKAN DI HALAMAN GURU
             $this->session->set_flashdata('notif', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>ID Tidak Terdapat diDatabase!</strong> Silahkan Ulangi lagi.
@@ -113,8 +118,14 @@ class Guru extends CI_Controller
             redirect('guru');
         }
 
+        // membuat variabel active untuk membedakan menu
+        $data['mgurutampil'] = true;
+        $data['title'] = "Edit Guru";
+
         //untuk penamaan view_guru bebas asalkan sama pada file yang ada di folder views
-        $this->load->view('view_guru_edit', $data);
+        $this->load->view('backend/part/header', $data);
+        $this->load->view('backend/page/guru/view_guru_edit');
+        $this->load->view('backend/part/footer');
         // $data ini digunakan untuk mengirim nilai hasil dari pencarian melalui model $data['dtguru']
     }
 
@@ -135,7 +146,7 @@ class Guru extends CI_Controller
         //  $_FILES MEMANGGIL TXTFOTO DENGAN ATTRIBUT NAME
         $e = $_FILES['txtfoto']['name'];
         // membuat logika jika foto tidak diedit / dirubah / diganti
-        if ($e=="") {
+        if ($e == "") {
             // jika tidak diedit maka yang dieksekusi hanya dibawah inni
 
             // update data melalui model
@@ -156,7 +167,7 @@ class Guru extends CI_Controller
                     </div>');
                 redirect('guru');
             }
-        }else{
+        } else {
             // EXPLODE DIGUNAKAN UNTUK MEMISAHKAN KALIMAT DARI SEBELUM TITIK . DAN SESUDAH TITIK .
             $x = explode(".", $e);
             // strtolower(end($x)) MENGAMBIL NILAI PALING AKHIR DARI VARIABEL X
@@ -184,7 +195,7 @@ class Guru extends CI_Controller
                 redirect('guru');
             } else {
                 // sekarang proses untuk menghapus gambar yang ada di dalam directory
-                unlink(realpath('upload/guru/' . $namafoto));                
+                unlink(realpath('upload/guru/' . $namafoto));
 
                 // LOGIKA IF [JIKA SISTEM SUDAH MEMINDAHKAN FOTO KEDALAM VARIABEL LOCATION DAN mengirimkan data yang ada di dalam kurung ini ($nama, $alamat, $tanggallahir, $foto)]
                 if (move_uploaded_file($_FILES['txtfoto']['tmp_name'], $location) && $this->Mguru->guru_edit_prosesfoto($id_guru, $nama, $alamat, $tanggallahir, $foto)) {
@@ -248,5 +259,4 @@ class Guru extends CI_Controller
             redirect('guru');
         }
     }
-
 }
