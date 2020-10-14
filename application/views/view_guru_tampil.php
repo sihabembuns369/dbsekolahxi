@@ -1,3 +1,4 @@
+<!-- HEADER -->
 <!doctype html>
 <html lang="en">
 
@@ -30,6 +31,10 @@
             </li>
         </ul>
     </nav>
+    <!-- HEADER -->
+
+    <!-- CONTENT -->
+
     <div class="container">
         <h1>Data Keseluruhan Guru</h1>
         <button type="button" class="btn btn-success m-1" data-toggle="modal" data-target="#modal_guru" data-whatever="@mdo">Tambah Guru</button>
@@ -152,6 +157,9 @@
                 });
         }
     </script>
+    <!-- CONTENT -->
+
+    <!-- FOOTER -->
 
     <script src="<?php echo base_url('asset/jquery-3.2.1.slim.min.js'); ?>"></script>
     <script src="<?php echo base_url('asset/popper.min.js'); ?>"></script>
@@ -160,3 +168,4 @@
 </body>
 
 </html>
+<!-- FOOTER -->
